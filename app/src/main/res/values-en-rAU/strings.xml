@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gianluca\'s Android Labs</string>
+    <string name="hello_message">G\'Day Mate!</string>
+    <string name="button_message">I\'m a button mate!</string>
+</resources>
