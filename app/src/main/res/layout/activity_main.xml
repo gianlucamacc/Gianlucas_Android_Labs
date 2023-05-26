@@ -21,12 +21,42 @@
         android:text="@string/button_message"
         android:id="@+id/mybutton"
 />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you drink coffee?"
+        android:id="@+id/checkBox"
+        />
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you drink coffee?"
+        android:id="@+id/switch1"
+        />
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you drink coffee?"
+        android:id="@+id/radioButton"
+        />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/myedittext"
-        android:text="@string/editmessage"
         android:hint="@string/hinttext"
+        />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_algonquin"
+        />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_algonquin"
+        android:id="@+id/myimagebutton"
         />
 
 </LinearLayout>
