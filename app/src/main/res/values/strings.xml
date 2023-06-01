@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Gianluca\'s Android Labs</string>
+    <string name="spin_message">Spin Flag</string>
+    <string name="button1">Button 1</string>
+    <string name="button2">Button 2</string>
+    <string name="button3">Button 3</string>
+
 </resources>
