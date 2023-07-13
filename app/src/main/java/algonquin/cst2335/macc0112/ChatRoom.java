@@ -25,9 +25,7 @@ import java.util.Date;
 
 
 
-/**
- * Activity for displaying a chat room and handling user interactions.
- */
+
 public class ChatRoom extends AppCompatActivity {
 
     ActivityChatRoomBinding binding;
@@ -35,9 +33,7 @@ public class ChatRoom extends AppCompatActivity {
 
     ChatRoomViewModel chatModel;
 
-    /**
-     * Represents a chat message.
-     */
+
     public class ChatMessage {
         private String message;
         private String timeSent;
