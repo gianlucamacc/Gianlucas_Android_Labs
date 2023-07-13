@@ -4,59 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.MainActivity"
-    android:orientation="vertical">
+    tools:context="ui.MainActivity"
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_message"
-        android:id="@+id/textview"
-/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="@string/button_message"
-        android:id="@+id/mybutton"
-/>
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do you drink coffee?"
-        android:id="@+id/checkBox"
-        />
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do you drink coffee?"
-        android:id="@+id/switch1"
-        />
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do you drink coffee?"
-        android:id="@+id/radioButton"
-        />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myedittext"
-        android:hint="@string/hinttext"
-        />
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo_algonquin"
-        />
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo_algonquin"
-        android:id="@+id/myimagebutton"
-        />
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="227dp"
+        android:layout_height="315dp" />
 </LinearLayout>
