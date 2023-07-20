@@ -181,33 +181,28 @@ public class ChatRoom extends AppCompatActivity {
                 });
                 builder.setPositiveButton("Yes", (dialog, cl) -> {
 
-                    ChatMessage removedMessage = messages.get(position);
-                    messages.remove(position);
-                    myAdapter.notifyItemRemoved(position);
+                            ChatMessage removedMessage = messages.get(position);
+                            messages.remove(position);
+                            myAdapter.notifyItemRemoved(position);
 
-                    Snackbar.make(itemView, "You deleted message #" + position, Snackbar.LENGTH_LONG)
-                            .setAction("Undo", undoclk -> {
-                                // Undo logic here
-                                messages.add(position, removedMessage);
-                                myAdapter.notifyItemInserted(position);
-                            })
-                            .show();
-                });
+                            Executor thread = Executors.newSingleThreadExecutor();
+                            thread.execute(() -> {
+                                mDAO.deleteMessage(removedMessage);
+
+
+                                runOnUiThread(() -> {
+                                    Snackbar.make(itemView, "You deleted message #" + position, Snackbar.LENGTH_LONG)
+                                            .setAction("Undo", undoclk -> {
+                                                // Undo logic here
+                                                messages.add(position, removedMessage);
+                                                myAdapter.notifyItemInserted(position);
+                                            })
+                                            .show();
+                                });
+                            });
+                        });
                 builder.create().show();
             });
         }
-    }
-
-
-    public void removeMessage(int position) {
-        messages.remove(position);
-        myAdapter.notifyItemRemoved(position);
-    }
-
-
-    public void updateMessages(ArrayList<ChatMessage> newMessages) {
-        messages.clear();
-        messages.addAll(newMessages);
-        myAdapter.notifyDataSetChanged();
     }
 }
