@@ -12,7 +12,7 @@
         android:theme="@style/Theme.GianlucasAndroidLabs"
         tools:targetApi="31">
         <activity
-            android:name=".ChatRoom"
+            android:name=".ui.data.ChatRoom"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
