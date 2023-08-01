@@ -132,7 +132,7 @@ public class ChatRoom extends AppCompatActivity {
 
         chatmodel.selectedMessage.observe(this, (newMessageValue) ->{
             MessageDetailsFragment chatFragment = new MessageDetailsFragment(newMessageValue);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentLocation, chatFragment).commit();
+            getSupportFragmentManager().beginTransaction().addToBackStack("").replace(R.id.fragmentLocation, chatFragment).commit();
 
 
 
