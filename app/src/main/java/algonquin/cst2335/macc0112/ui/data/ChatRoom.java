@@ -2,9 +2,13 @@ package algonquin.cst2335.macc0112.ui.data;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
@@ -43,6 +47,28 @@ import java.util.concurrent.Executors;
 public class ChatRoom extends AppCompatActivity {
     private ActivityChatRoomBinding binding;
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        String words = "";
+        if (item.getItemId() == R.id.id_item1)
+        {
+        words = "Garbage";
+        }
+        else if (item.getItemId() == R.id.id_item2)
+        {
+        words = "Down Arrow";
+        }
+        Toast.makeText(this, "You clicked on the " + words, Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
     class MyRowHolder extends RecyclerView.ViewHolder {
         TextView messageText;
         TextView timeText;
@@ -52,8 +78,12 @@ public class ChatRoom extends AppCompatActivity {
 
 
 
+
+
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
+
+
 
             itemView.setOnClickListener(clk -> {
 
@@ -63,7 +93,7 @@ public class ChatRoom extends AppCompatActivity {
                 chatmodel.selectedMessage.postValue(selected);
 
 
-                /*
+
                 AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
                 builder.setMessage("Do you want to delete the message: " + messageText.getText())
                     .setTitle("Question")
@@ -94,8 +124,9 @@ public class ChatRoom extends AppCompatActivity {
                     }).show();
                 })
                 .create().show();
-*/
-            });
+
+            }
+            );
             messageText = itemView.findViewById(R.id.message);
             timeText = itemView.findViewById(R.id.time);
         }
@@ -121,6 +152,12 @@ public class ChatRoom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
+
+
         if (chatmodel == null) {
             chatmodel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
         }
@@ -128,6 +165,8 @@ public class ChatRoom extends AppCompatActivity {
         setContentView(R.layout.activity_chat_room);
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.myToolbar);
 
 
         chatmodel.selectedMessage.observe(this, (newMessageValue) ->{
