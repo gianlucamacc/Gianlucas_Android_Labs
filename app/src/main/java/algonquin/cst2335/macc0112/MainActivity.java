@@ -1,115 +1,91 @@
 package algonquin.cst2335.macc0112;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
-/**
- * This page takes in a password for loggin in and validates it for certain criteria
- * @author gianl
- * @version 1.0
- */
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URLEncoder;
+
+import algonquin.cst2335.macc0112.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
-    /**
-     * This holds the text in the center of the screen
-     */
-    private TextView tv = null;
-    /**
-     * This is the field that takes in the password
-     */
-    private EditText pass = null;
-    /**
-     * This is the button on the bottom of the phone screen that logs the user in
-     */
-    private Button login = null;
+
+
+    protected String cityName;
+    RequestQueue queue = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        tv = findViewById(R.id.textView);
-        pass = findViewById(R.id.password);
-        login = findViewById(R.id.login);
+        queue =Volley.newRequestQueue(this);
 
-        login.setOnClickListener( clk -> {
-            String password = pass.getText().toString();
+        ActivityMainBinding binding = ActivityMainBinding.inflate( getLayoutInflater() );
+        setContentView(binding.getRoot());
 
-            boolean isComplex = checkPasswordComplexity(password, MainActivity.this);
-            if (isComplex) {
-                tv.setText("Your password meets the requirements");
-            } else {
-                tv.setText("You shall not pass!");
-            }
-        });
-    }
+        binding.forecastButton.setOnClickListener(click -> {
+            cityName = binding.cityTextField.getText().toString();
+            String stringURL = "https://api.openweathermap.org/data/2.5/weather?q="
+                + URLEncoder.encode(cityName)
+                + "&appid=7e943c97096a9784391a981c4d878b22&units=metric";
 
-    /** This function's purpose is to check if the password contain the correct criteria to be used
-     *
-     * @param pw the String object that we are checking
-     * @param context the context of the activity
-     * @return Return true if password is complex enough
-     */
-    boolean checkPasswordComplexity(String pw, Context context) {
-        boolean foundUpperCase = false;
-        boolean foundLowerCase = false;
-        boolean foundNumber = false;
-        boolean foundSpecial = false;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, stringURL, null,
+                (response) -> {
+                    try {
 
-        for (int i = 0; i < pw.length(); i++) {
-            char c = pw.charAt(i);
+                        JSONObject coord = response.getJSONObject("coord");
 
-            if (Character.isUpperCase(c)) {
-                foundUpperCase = true;
-            } else if (Character.isLowerCase(c)) {
-                foundLowerCase = true;
-            } else if (Character.isDigit(c)) {
-                foundNumber = true;
-            } else if (isSpecialCharacter(c)) {
-                foundSpecial = true;
-            }
-        }
+                        JSONArray weatherArray = response.getJSONArray("weather");
+                        JSONObject position0 = weatherArray.getJSONObject(0);
 
-        if (!foundUpperCase) {
-            Toast.makeText(context, "Missing an uppercase letter.", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!foundLowerCase) {
-            Toast.makeText(context, "Missing a lowercase letter.", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!foundNumber) {
-            Toast.makeText(context, "Missing a digit.", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!foundSpecial) {
-            Toast.makeText(context, "Missing a special character.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+                        String description = position0.getString("description");
+                        String iconName = position0.getString("icon");
 
-        return true;
-    }
+                        JSONObject mainObject = response.getJSONObject("main");
+                        double current = mainObject.getDouble("temp");
+                        double min = mainObject.getDouble("temp_min");
+                        double max = mainObject.getDouble("temp_max");
+                        int humidity = mainObject.getInt("humidity");
 
-    /** This function will sort the password and find if it has a special character
-     *
-     * @param c the character that is being filtered
-     * @return return true is the string meets criteria
-     */
-    boolean isSpecialCharacter(char c) {
-            switch(c)   {
-                case '#':
-                case '$':
-                case '%':
-                case '^':
-                case '&':
-                case '*':
-                case '!':
-                case '@':
-                case '?':
-                    return true;
-                default:
-                    return false;
+                        String imageUrl = "https://openweathermap.org/img/w/01d.png";
 
-            }
+                        ImageRequest imgReq = new ImageRequest(imageUrl, new Response.Listener>Bitmap<() {
+                            @Override
+                            public void onResponse(Bitmap bitmap) {
+                                int i = 0;
+
+                            }
+                        }, 1024, 1024, ImageView.ScaleType.CENTER, null, (error ) -> {
+                            int i = 0;
+                        });
+
+                        queue.add(imgReq);
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                },
+                (error) -> {
+                int i = 0;
+                });
+        queue.add(request);
+
+    });
+
+
     }
 }
