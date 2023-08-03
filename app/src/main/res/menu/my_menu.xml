@@ -6,12 +6,12 @@
         android:id="@+id/id_item1"
         android:icon="@drawable/delete"
         android:title="Delete this item"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
     <item
 
-        android:title="Item"
+        android:title="About"
         android:id="@+id/id_item2"
         android:icon="@drawable/down_arrow"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
 </menu>

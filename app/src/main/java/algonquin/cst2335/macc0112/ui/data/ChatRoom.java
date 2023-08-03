@@ -49,16 +49,17 @@ public class ChatRoom extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        String words = "";
+
         if (item.getItemId() == R.id.id_item1)
         {
-        words = "Garbage";
+            Toast.makeText(this, "You clicked on Delete", Toast.LENGTH_LONG).show();
+
         }
         else if (item.getItemId() == R.id.id_item2)
         {
-        words = "Down Arrow";
+            Toast.makeText(this, "Version 1.0, created by Gianluca Macchiagodena", Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(this, "You clicked on the " + words, Toast.LENGTH_LONG).show();
+
         return true;
     }
 
@@ -94,7 +95,7 @@ public class ChatRoom extends AppCompatActivity {
 
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
+               AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
                 builder.setMessage("Do you want to delete the message: " + messageText.getText())
                     .setTitle("Question")
                         .setNegativeButton("No", (dialog, cl)->{})
